@@ -79,7 +79,6 @@ const Dashboard = ({ balance, allowance, expenses }) => {
 
   const storedDashboard = JSON.parse(localStorage.getItem("demo-dashboard")) || defaultDashboard;
 
-
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6 font-sans">
       {/* Welcome & Date */}
@@ -90,47 +89,50 @@ const Dashboard = ({ balance, allowance, expenses }) => {
         <p className="text-gray-600 text-md">{today}</p>
       </div>
 
-      {/* Overview Grid (unchanged) */}
+      {/* Overview Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* account cards … */}
         <div className="bg-white p-4 shadow rounded">
           <h3 className="font-semibold mb-2">🏦 Checking Account</h3>
-          <p className="text-2xl font-bold text-green-700">${(balance * 0.5).toFixed(2)}</p>
+          <p className="text-2xl font-bold text-green-700">${storedDashboard.checking.toFixed(2)}</p>
         </div>
         <div className="bg-white p-4 shadow rounded">
           <h3 className="font-semibold mb-2">💳 Credit/Debit Card</h3>
-          <p className="text-2xl font-bold text-blue-600">${(balance * 0.25).toFixed(2)}</p>
+          <p className="text-2xl font-bold text-blue-600">${storedDashboard.credit.toFixed(2)}</p>
         </div>
         <div className="bg-white p-4 shadow rounded">
           <h3 className="font-semibold mb-2">💰 Net Cash</h3>
-          <p className="text-2xl font-bold text-gray-800">${balance.toFixed(2)}</p>
+          <p className="text-2xl font-bold text-gray-800">${storedDashboard.netCash.toFixed(2)}</p>
         </div>
         <div className="bg-white p-4 shadow rounded">
           <h3 className="font-semibold mb-2">💾 Savings</h3>
-          <p className="text-2xl font-bold text-purple-700">${(balance * 0.15).toFixed(2)}</p>
+          <p className="text-2xl font-bold text-purple-700">${storedDashboard.savings.toFixed(2)}</p>
         </div>
         <div className="bg-white p-4 shadow rounded">
           <h3 className="font-semibold mb-2">📈 Investments</h3>
-          <p className="text-2xl font-bold text-yellow-600">${(balance * 0.1).toFixed(2)}</p>
+          <p className="text-2xl font-bold text-yellow-600">${storedDashboard.investments.toFixed(2)}</p>
         </div>
         <div className="bg-white p-4 shadow rounded">
           <h3 className="font-semibold mb-2">🧾 Monthly Allowance</h3>
           <p className="text-2xl font-bold text-red-700">
-            ${allowance > 0 ? allowance.toFixed(2) : '0.00'}
+            ${storedDashboard.monthlyAllowance > 0
+              ? storedDashboard.monthlyAllowance.toFixed(2)
+              : '0.00'}
           </p>
-          {allowance < 0 && <p className="text-red-500 text-sm mt-1">⚠️ Over budget</p>}
+          {storedDashboard.monthlyAllowance < 0 && (
+            <p className="text-red-500 text-sm mt-1">⚠️ Over budget</p>
+          )}
         </div>
       </div>
 
       {/* Charts */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Pie (unchanged) */}
+        {/* Pie */}
         <div className="bg-white p-4 shadow rounded">
           <h3 className="font-semibold mb-2">📊 Spending by Category</h3>
           <Pie data={pieData} />
         </div>
 
-        {/* Bar + Year picker */}
+        {/* Bar + Year Picker */}
         <div className="bg-white p-4 shadow rounded">
           <div className="flex justify-between items-center mb-2">
             <h3 className="font-semibold">📈 Monthly Savings</h3>
@@ -149,7 +151,7 @@ const Dashboard = ({ balance, allowance, expenses }) => {
         </div>
       </div>
 
-      {/* Recent Transactions – newest first */}
+      {/* Recent Transactions */}
       <div className="bg-white p-4 shadow rounded">
         <h3 className="text-xl font-semibold mb-3">📝 Recent Transactions</h3>
         <ul className="max-h-64 overflow-y-auto space-y-2">
