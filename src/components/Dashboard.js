@@ -67,6 +67,18 @@ const Dashboard = ({ balance, allowance, expenses }) => {
   }), [barYear]);
 
   const today = now.toLocaleDateString();
+  
+  const defaultDashboard = {
+    checking: 420.50,
+    credit: 125.75,
+    netCash: 546.25,
+    savings: 310.00,
+    investments: 80.00,
+    monthlyAllowance: 250.00
+  };
+
+  const storedDashboard = JSON.parse(localStorage.getItem("demo-dashboard")) || defaultDashboard;
+
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6 font-sans">
