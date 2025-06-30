@@ -73,7 +73,7 @@ const Dashboard = ({ balance, allowance, expenses }) => {
       {/* Welcome & Date */}
       <div className="flex flex-col md:flex-row justify-between items-center">
         <h1 className="text-4xl font-bold text-[#800000] font-[Pacifico] mb-4 md:mb-0">
-          Hello, Eshita
+          Hello, User
         </h1>
         <p className="text-gray-600 text-md">{today}</p>
       </div>
